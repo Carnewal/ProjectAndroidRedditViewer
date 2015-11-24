@@ -24,18 +24,25 @@ public class SubredditFeedDeserializer implements JsonDeserializer<SubredditFeed
 
         List<Post> posts = new ArrayList<>();
         SubredditFeed feed = new SubredditFeed();
+        Gson gson = new Gson();
 
         final JsonObject postListingData = ((JsonObject) json).getAsJsonObject("data");
         final JsonArray postsData = postListingData.getAsJsonArray("children");
 
-        Gson gson = new Gson();
+
+
+        String before;
+        try { before =  postListingData.get("before").getAsString();
+        } catch(Exception e) {before=null;}
+
+        String after;
+        try { after = postListingData.get("after").getAsString();
+        } catch(Exception e) {after=null;}
+
 
         for(JsonElement post : postsData) {
-
             final JsonObject postData = post.getAsJsonObject().getAsJsonObject("data");
-
             Post p = gson.fromJson(postData.toString(), Post.class);
-
             posts.add(p);
         }
 

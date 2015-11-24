@@ -1,25 +1,34 @@
 package com.example.brecht.redditviewer.data.model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Brecht on 24/11/2015.
  */
 public class Post {
 
     private String id;
-    private String author;
 
     //Post
+    private String subreddit;
+    private String author;
     private int score;
     private String title;
     private String thumbnail;
 
+    @SerializedName("is_self")
+    private boolean isSelf;
+
     //Comments
-    private int num_comments;
+
+    @SerializedName("num_comments")
+    private int numComments;
     private String permalink;
 
     //Link
     private String domain;
     private String url;
+
 
 
     //private List<Comment> ...
@@ -71,12 +80,12 @@ public class Post {
         this.thumbnail = thumbnail;
     }
 
-    public int getNum_comments() {
-        return num_comments;
+    public int getNumComments() {
+        return numComments;
     }
 
-    public void setNum_comments(int num_comments) {
-        this.num_comments = num_comments;
+    public void setNumComments(int numComments) {
+        this.numComments = numComments;
     }
 
     public String getPermalink() {
@@ -101,5 +110,13 @@ public class Post {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public boolean is_self() {
+        return isSelf;
+    }
+
+    public void setSelf(boolean self) {
+        this.isSelf = self;
     }
 }

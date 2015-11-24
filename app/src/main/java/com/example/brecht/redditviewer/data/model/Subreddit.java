@@ -8,6 +8,15 @@ import java.util.List;
  */
 public class Subreddit {
 
+
+
+    private List<Post> posts;
+
+    private String lastBefore;
+    private String lastAfter;
+
+
+
     //2qgzt
     private String id;
 
@@ -32,7 +41,6 @@ public class Subreddit {
     //public_description
     private String public_description;
 
-    private List<Post> posts;
 
 
     ///
@@ -115,6 +123,21 @@ public class Subreddit {
         this.posts = posts;
     }
 
+    public String getLastAfter() {
+        return lastAfter;
+    }
+
+    public void setLastAfter(String lastAfter) {
+        this.lastAfter = lastAfter;
+    }
+
+    public String getLastBefore() {
+        return lastBefore;
+    }
+
+    public void setLastBefore(String lastBefore) {
+        this.lastBefore = lastBefore;
+    }
 
     @Override
     public String toString() {

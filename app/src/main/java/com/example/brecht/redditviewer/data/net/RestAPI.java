@@ -21,6 +21,12 @@ public interface RestAPI {
     Call<List<Subreddit>> getDefaultSubredditList();
 
     /**
+     * Get All Public Subreddits
+     */
+    @GET("/reddits.json")
+    Call<List<Subreddit>> getPublicSubredditList();
+
+    /**
      * Get All Default Subreddits in the Hot listing order
      */
     @GET("/r/{sub}/hot.json")

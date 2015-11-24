@@ -18,18 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Brecht on 23/11/2015.
+ *
+ *
+ *
+ *
  */
 public class SubredditDeserializer implements JsonDeserializer<List<Subreddit>> {
     @Override
     public List<Subreddit> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
         List<Subreddit> output = new ArrayList<>();
+        Gson gson = new Gson();
 
         final JsonObject subListingData = ((JsonObject) json).getAsJsonObject("data");
         final JsonArray subs = subListingData.getAsJsonArray("children");
 
-        Gson gson = new Gson();
 
         for(JsonElement sub : subs) {
 

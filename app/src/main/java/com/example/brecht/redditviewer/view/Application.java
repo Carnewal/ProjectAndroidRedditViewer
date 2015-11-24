@@ -1,40 +1,23 @@
-package com.example.brecht.redditviewer;
+package com.example.brecht.redditviewer.view;
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.Button;
 
-import com.example.brecht.redditviewer.data.model.Subreddit;
-import com.example.brecht.redditviewer.data.net.RedditRESTProvider;
+import com.example.brecht.redditviewer.R;
+import com.example.brecht.redditviewer.view.fragment.NavigationDrawerFragment;
+import com.example.brecht.redditviewer.view.fragment.SubredditFeedFragment;
 
-import java.util.List;
-
-import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
 
 public class Application extends AppCompatActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
 
-
-
-    @Bind(R.id.button)
-    Button button;
 
 
 
@@ -74,7 +57,7 @@ public class Application extends AppCompatActivity
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, SubredditFeedFragment.newInstance(position + 1))
                 .commit();
     }
 
@@ -128,49 +111,9 @@ public class Application extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((Application) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
-    }
 
 
-
-    @OnClick(R.id.button)
+    /*@OnClick(R.id.button)
     public void sync(View view) {
         Log.i("Syncing...", "");
 
@@ -186,12 +129,12 @@ public class Application extends AppCompatActivity
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();
-                Log.i("Error:" + t.getMessage(),"");
+                Log.i("Error:" + t.getMessage(), "");
             }
         });
 
     }
-
+*/
 
 
 
