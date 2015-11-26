@@ -13,7 +13,7 @@
         android:id="@+id/post_container_voting"
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent|wrap_contentdp"
+        android:layout_height="wrap_content"
         android:baselineAligned="false">
 
         <ImageView

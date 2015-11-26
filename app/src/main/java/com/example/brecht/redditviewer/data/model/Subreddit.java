@@ -8,47 +8,18 @@ import java.util.List;
  */
 public class Subreddit {
 
-
-
     private List<Post> posts;
 
     private String lastBefore;
     private String lastAfter;
-
-
-
-    //2qgzt
-    private String id;
-
-    //"gadgets
-    private String display_name;
-
-    //"imgur.com/..."
-    private String header_img;
-
-    //  "header_size": [241,108]
-    private int[] header_size;
-
-    //"Reddit gadget guide"
-    private String title;
-
-    //"name": "t5_2qgzt",
-    private String name;
-
-    //"url": "/r/gadgets/",
-    private String url;
-
-    //public_description
-    private String public_description;
-
-
-
-    ///
-    ///
-    /// Getters & Setters
-    ///
-    ///
-
+    private String id; //2qgzt
+    private String display_name; //gadgets
+    private String header_img; // imgur.com/..
+    private int[] header_size; //  "header_size": [241,108]
+    private String title; //"Reddit gadget guide"
+    private String name;//"name": "t5_2qgzt",
+    private String url; //"url": "/r/gadgets/",
+    private String public_description;//public_description
 
 
     public String getId() {

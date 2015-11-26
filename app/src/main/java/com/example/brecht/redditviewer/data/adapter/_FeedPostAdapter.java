@@ -14,11 +14,16 @@ import com.squareup.picasso.Picasso;
 
 /**
  * Created by Brecht on 24/11/2015.
+ *
+ * https://github.com/codepath/android_guides/wiki/Populating-a-ListView-with-a-CursorAdapter
+ *
  */
-public class FeedPostAdapter extends CursorAdapter {
+public class _FeedPostAdapter extends CursorAdapter {
 
 
-    public FeedPostAdapter(Context context, Cursor cursor, int flags) {
+
+
+    public _FeedPostAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, 0);
     }
 

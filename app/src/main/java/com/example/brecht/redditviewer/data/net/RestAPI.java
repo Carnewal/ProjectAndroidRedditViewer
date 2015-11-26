@@ -28,7 +28,13 @@ public interface RestAPI {
 
     /**
      * Get All Default Subreddits in the Hot listing order
+     *
+     * to limit, use ?limit=XX
+     * Max 100
+     *
      */
+
+
     @GET("/r/{sub}/hot.json")
     Call<List<Post>> getSubredditHotPosts(@Path("sub") String sub);
 

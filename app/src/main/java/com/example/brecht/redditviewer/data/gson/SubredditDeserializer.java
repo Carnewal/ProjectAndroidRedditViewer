@@ -17,12 +17,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- *
- *
- *
- */
+
 public class SubredditDeserializer implements JsonDeserializer<List<Subreddit>> {
     @Override
     public List<Subreddit> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -33,23 +28,13 @@ public class SubredditDeserializer implements JsonDeserializer<List<Subreddit>> 
         final JsonObject subListingData = ((JsonObject) json).getAsJsonObject("data");
         final JsonArray subs = subListingData.getAsJsonArray("children");
 
-
         for(JsonElement sub : subs) {
-
             final JsonObject subredditData = sub.getAsJsonObject().getAsJsonObject("data");
-
             Subreddit s = gson.fromJson(subredditData.toString(), Subreddit.class);
-
-            Log.i("Added default subreddit" , s.getName());
             output.add(s);
-
         }
 
         return output;
-
-
-
-
 
     }
 }
