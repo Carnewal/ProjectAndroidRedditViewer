@@ -1,24 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.brecht.redditviewer" >
+    package="com.carnewal.brecht.redditviewer" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
+        android:name="com.carnewal.brecht.redditviewer.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <service android:name=".data.service.SubredditSyncService" />
+
+
         <activity
-            android:name=".view.Application"
+            android:name="com.carnewal.brecht.redditviewer.view.activity.RedditActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider android:authorities="com.carnewal.brecht.redditviewer"
+            android:exported="false"
+            android:name="com.activeandroid.content.ContentProvider" />
+
+        <meta-data android:name="AA_DB_NAME" android:value="redditviewer.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="4" />
+
     </application>
 
 </manifest>
