@@ -73,11 +73,11 @@ public class FeedPostViewHolder extends RecyclerView.ViewHolder {
             if(postThumbnail != null)
                 Picasso.with(this.itemView.getContext()).load(postThumbnail)
                         .resize(140,140).centerCrop()
-                        .placeholder(R.drawable.error)
-                        .error(R.drawable.error)
+                        .placeholder(R.drawable.snoo)
+                        .error(R.drawable.snoo)
                         .into(thumbnail);
         } catch(IllegalArgumentException ex) {
-            thumbnail.setImageResource(0);
+            thumbnail.setImageResource(R.drawable.snoo);
         }
 
 
