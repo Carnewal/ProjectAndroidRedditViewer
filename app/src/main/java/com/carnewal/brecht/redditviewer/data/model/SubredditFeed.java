@@ -1,5 +1,6 @@
 package com.carnewal.brecht.redditviewer.data.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,4 +19,19 @@ public class SubredditFeed {
     private String before;
     private String after;
 
+    public SubredditFeed() {
+        posts = new ArrayList<>();
+    }
+
+    public void addPost(Post p) {
+        posts.add(p);
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 }

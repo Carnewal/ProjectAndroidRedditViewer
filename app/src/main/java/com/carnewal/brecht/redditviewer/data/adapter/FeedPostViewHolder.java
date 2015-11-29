@@ -3,6 +3,7 @@ package com.carnewal.brecht.redditviewer.data.adapter;
 import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,29 +51,34 @@ public class FeedPostViewHolder extends RecyclerView.ViewHolder {
      */
     public void insertFromCursorData(Cursor cursor) {
 
-
+    Log.i("Columns: ", ""+cursor.getColumnCount());
         String postTitle = cursor.getString(cursor.getColumnIndexOrThrow("title"));
         String postAuthor = cursor.getString(cursor.getColumnIndexOrThrow("author"));
         String postThumbnail = cursor.getString(cursor.getColumnIndexOrThrow("thumbnail"));
 
-        /*int postScore = cursor.getInt(cursor.getColumnIndexOrThrow("score"));
-        int postNumComments = cursor.getInt(cursor.getColumnIndexOrThrow("numComments"));
+        int postScore = cursor.getInt(cursor.getColumnIndexOrThrow("score"));
+        int postNumComments = cursor.getInt(cursor.getColumnIndexOrThrow("num_comments"));
         String postUrl = cursor.getString(cursor.getColumnIndexOrThrow("url"));
 
         String postDomain = cursor.getString(cursor.getColumnIndexOrThrow("domain"));
         String postPermalink = cursor.getString(cursor.getColumnIndexOrThrow("permalink"));
         String postSubreddit = cursor.getString(cursor.getColumnIndexOrThrow("subreddit"));
-        boolean postIsSelf = cursor.getInt(cursor.getColumnIndexOrThrow("isSelf")) > 0;
-*/
+
+       // boolean postIsSelf = cursor.getInt(cursor.getColumnIndexOrThrow("is_self")) > 0;
+
         this.title.setText(postTitle);
         this.author.setText(postAuthor);
 
-        if(postThumbnail != null)
-            Picasso.with(this.itemView.getContext()).load(postThumbnail)
-                    .resize(50,50).centerCrop()
-                    .placeholder(R.drawable.error)
-                    .error(R.drawable.error)
-                    .into(thumbnail);
+        try {
+            if(postThumbnail != null)
+                Picasso.with(this.itemView.getContext()).load(postThumbnail)
+                        .resize(140,140).centerCrop()
+                        .placeholder(R.drawable.error)
+                        .error(R.drawable.error)
+                        .into(thumbnail);
+        } catch(IllegalArgumentException ex) {
+            thumbnail.setImageResource(0);
+        }
 
 
 

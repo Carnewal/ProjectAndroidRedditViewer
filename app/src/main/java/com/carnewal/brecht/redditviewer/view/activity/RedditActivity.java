@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
 import com.carnewal.brecht.redditviewer.R;
@@ -32,7 +33,7 @@ public class RedditActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActiveAndroid.initialize(this);
+        //ActiveAndroid.initialize(this);
 
         setContentView(R.layout.activity_home);
 
@@ -51,37 +52,21 @@ public class RedditActivity extends AppCompatActivity
     }
 
     @Override
-    public void onNavigationDrawerItemSelected(int position) {
-
-        // fetch the posts in a service
-
-        String subname = "Subreddit Name";
+    public void onNavigationDrawerItemSelected(int position, String name) {
 
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, SubredditFeedFragment.newInstance(position + 1, subname))
+                .replace(R.id.container, SubredditFeedFragment.newInstance(position + 1, name))
                 .commit();
 
     }
-    //TODO: Remove
-    public void onSectionAttached(int number) {
-        switch (number) {
-            case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-        }
-    }
+
     public void onSectionAttached(String name) {
         mTitle = name;
     }
+
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -115,7 +100,14 @@ public class RedditActivity extends AppCompatActivity
             return true;
         } else if(id == R.id.refresh_button) {
 
+            if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof SubredditFeedFragment) {
 
+                SubredditFeedFragment current = (SubredditFeedFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+                current.refresh();
+                return true;
+            }
+
+            Toast.makeText(getApplication().getApplicationContext(), "Load a Subreddit from the left sidebar before refreshing.", Toast.LENGTH_LONG);
             return true;
         }
 

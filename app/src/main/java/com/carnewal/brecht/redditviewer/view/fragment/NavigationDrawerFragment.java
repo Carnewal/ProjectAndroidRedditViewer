@@ -223,7 +223,12 @@ public class NavigationDrawerFragment extends Fragment {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
+            if(mDrawerListView != null) {
+                Cursor c = ((Cursor) mDrawerListView.getAdapter().getItem(position));
+                String name = c.getString(c.getColumnIndexOrThrow("display_name"));
+                mCallbacks.onNavigationDrawerItemSelected(position, name);
+            }
+
         }
     }
 
@@ -305,7 +310,7 @@ public class NavigationDrawerFragment extends Fragment {
         /**
          * Called when an item in the navigation drawer is selected.
          */
-        void onNavigationDrawerItemSelected(int position);
+        void onNavigationDrawerItemSelected(int position, String name);
     }
 
 

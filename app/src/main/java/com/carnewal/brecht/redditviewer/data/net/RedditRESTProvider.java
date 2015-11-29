@@ -4,6 +4,7 @@ import com.carnewal.brecht.redditviewer.data.gson.SubredditFeedDeserializer;
 import com.carnewal.brecht.redditviewer.data.gson.SubredditDeserializer;
 import com.carnewal.brecht.redditviewer.data.model.Post;
 import com.carnewal.brecht.redditviewer.data.model.Subreddit;
+import com.carnewal.brecht.redditviewer.data.model.SubredditFeed;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -36,12 +37,11 @@ public class RedditRESTProvider {
     private RedditRESTProvider() {
 
         final Type subListType = new TypeToken<List<Subreddit>>(){}.getType();
-        final Type postListType = new TypeToken<List<Post>>(){}.getType();
 
         GSON = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(subListType, new SubredditDeserializer())
-                .registerTypeAdapter(postListType, new SubredditFeedDeserializer())
+                .registerTypeAdapter(SubredditFeed.class, new SubredditFeedDeserializer())
                 .create();
 
         builder = new Retrofit.Builder()

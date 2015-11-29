@@ -1,5 +1,7 @@
 package com.carnewal.brecht.redditviewer.data.gson;
 
+import android.util.Log;
+
 import com.carnewal.brecht.redditviewer.data.model.Post;
 import com.carnewal.brecht.redditviewer.data.model.SubredditFeed;
 import com.google.gson.Gson;
@@ -22,7 +24,6 @@ public class SubredditFeedDeserializer implements JsonDeserializer<SubredditFeed
     @Override
     public SubredditFeed deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-        List<Post> posts = new ArrayList<>();
         SubredditFeed feed = new SubredditFeed();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -40,16 +41,19 @@ public class SubredditFeedDeserializer implements JsonDeserializer<SubredditFeed
         try { after = postListingData.get("after").getAsString();
         } catch(Exception e) {after=null;}
 
+        Log.i("Adding posts:", postsData.toString());
+
+
 
         for(JsonElement post : postsData) {
             final JsonObject postData = post.getAsJsonObject().getAsJsonObject("data");
+
+            Log.i("data: " , postData.toString() );
+
             Post p = gson.fromJson(postData.toString(), Post.class);
-            posts.add(p);
+            Log.i("Post Added:", p.title);
+            feed.addPost(p);
         }
-
-
-
-
 
 
 

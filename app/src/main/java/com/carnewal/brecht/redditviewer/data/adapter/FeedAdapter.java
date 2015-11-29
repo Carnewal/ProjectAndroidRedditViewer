@@ -18,6 +18,8 @@ public class FeedAdapter extends CursorRecyclerAdapter<FeedPostViewHolder>{
         super(cursor);
     }
 
+
+
     @Override
     public FeedPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_rv_card, parent, false);
