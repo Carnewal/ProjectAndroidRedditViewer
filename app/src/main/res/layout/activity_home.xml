@@ -20,7 +20,7 @@
     <fragment android:id="@+id/navigation_drawer"
         android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:name="com.carnewal.brecht.redditviewer.view.fragment.NavigationDrawerFragment"
+        android:name="com.carnewal.brecht.redditviewer.view.fragment.SubredditDrawerFragment"
         tools:layout="@layout/nav_listview" />
 
 </android.support.v4.widget.DrawerLayout>

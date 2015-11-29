@@ -7,11 +7,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.carnewal.brecht.redditviewer.data.model.Post;
-import com.carnewal.brecht.redditviewer.data.model.Subreddit;
-import com.carnewal.brecht.redditviewer.data.model.SubredditFeed;
-import com.carnewal.brecht.redditviewer.data.net.RedditRESTProvider;
-
-import java.util.List;
+import com.carnewal.brecht.redditviewer.data.model.Feed;
+import com.carnewal.brecht.redditviewer.data.rest.RedditRESTProvider;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -20,7 +17,7 @@ import retrofit.Retrofit;
 /**
  * Created by Brecht on 28/11/2015.
  */
-public class PostSyncService extends Service {
+public class FeedSyncService extends Service {
 
 
     @Override
@@ -30,9 +27,9 @@ public class PostSyncService extends Service {
 
         Log.i("SubSync: ", sub);
 
-        RedditRESTProvider.getInstance().getService().getSubredditHotPosts(sub).enqueue(new Callback<SubredditFeed>() {
+        RedditRESTProvider.getInstance().getService().getFeed(sub).enqueue(new Callback<Feed>() {
             @Override
-            public void onResponse(Response<SubredditFeed> response, Retrofit retrofit) {
+            public void onResponse(Response<Feed> response, Retrofit retrofit) {
                 for(Post p : response.body().getPosts()) {
                     Log.i("post: ", p.title);
                     p.save();

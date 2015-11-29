@@ -1,15 +1,13 @@
-package com.carnewal.brecht.redditviewer.data.net;
+package com.carnewal.brecht.redditviewer.data.rest;
 
-import com.carnewal.brecht.redditviewer.data.gson.SubredditFeedDeserializer;
+import com.carnewal.brecht.redditviewer.data.gson.FeedDeserializer;
 import com.carnewal.brecht.redditviewer.data.gson.SubredditDeserializer;
-import com.carnewal.brecht.redditviewer.data.model.Post;
 import com.carnewal.brecht.redditviewer.data.model.Subreddit;
-import com.carnewal.brecht.redditviewer.data.model.SubredditFeed;
+import com.carnewal.brecht.redditviewer.data.model.Feed;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -41,7 +39,7 @@ public class RedditRESTProvider {
         GSON = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
                 .registerTypeAdapter(subListType, new SubredditDeserializer())
-                .registerTypeAdapter(SubredditFeed.class, new SubredditFeedDeserializer())
+                .registerTypeAdapter(Feed.class, new FeedDeserializer())
                 .create();
 
         builder = new Retrofit.Builder()

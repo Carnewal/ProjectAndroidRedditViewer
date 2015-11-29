@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme" >
 
         <service android:name=".data.service.SubredditSyncService" />
-        <service android:name=".data.service.PostSyncService" />
+        <service android:name=".data.service.FeedSyncService" />
 
 
         <activity

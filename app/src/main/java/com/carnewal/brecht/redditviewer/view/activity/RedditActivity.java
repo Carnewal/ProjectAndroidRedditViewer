@@ -9,21 +9,20 @@ import android.view.MenuItem;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.Toast;
 
-import com.activeandroid.ActiveAndroid;
 import com.carnewal.brecht.redditviewer.R;
-import com.carnewal.brecht.redditviewer.view.fragment.NavigationDrawerFragment;
-import com.carnewal.brecht.redditviewer.view.fragment.SubredditFeedFragment;
+import com.carnewal.brecht.redditviewer.view.fragment.SubredditDrawerFragment;
+import com.carnewal.brecht.redditviewer.view.fragment.FeedFragment;
 
 import butterknife.ButterKnife;
 
 public class RedditActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements SubredditDrawerFragment.NavigationDrawerCallbacks {
 
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
-    private NavigationDrawerFragment mNavigationDrawerFragment;
+    private SubredditDrawerFragment mSubredditDrawerFragment;
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -37,13 +36,13 @@ public class RedditActivity extends AppCompatActivity
 
         setContentView(R.layout.activity_home);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
+        mSubredditDrawerFragment = (SubredditDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
 
         mTitle = getTitle();
 
         // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
+        mSubredditDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
@@ -58,7 +57,7 @@ public class RedditActivity extends AppCompatActivity
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, SubredditFeedFragment.newInstance(position + 1, name))
+                .replace(R.id.container, FeedFragment.newInstance(position + 1, name))
                 .commit();
 
     }
@@ -77,7 +76,7 @@ public class RedditActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (!mNavigationDrawerFragment.isDrawerOpen()) {
+        if (!mSubredditDrawerFragment.isDrawerOpen()) {
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
@@ -100,9 +99,9 @@ public class RedditActivity extends AppCompatActivity
             return true;
         } else if(id == R.id.refresh_button) {
 
-            if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof SubredditFeedFragment) {
+            if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof FeedFragment) {
 
-                SubredditFeedFragment current = (SubredditFeedFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+                FeedFragment current = (FeedFragment) getSupportFragmentManager().findFragmentById(R.id.container);
                 current.refresh();
                 return true;
             }

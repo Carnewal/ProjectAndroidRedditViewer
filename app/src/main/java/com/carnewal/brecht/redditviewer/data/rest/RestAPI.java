@@ -1,8 +1,7 @@
-package com.carnewal.brecht.redditviewer.data.net;
+package com.carnewal.brecht.redditviewer.data.rest;
 
-import com.carnewal.brecht.redditviewer.data.model.Post;
 import com.carnewal.brecht.redditviewer.data.model.Subreddit;
-import com.carnewal.brecht.redditviewer.data.model.SubredditFeed;
+import com.carnewal.brecht.redditviewer.data.model.Feed;
 
 import java.util.List;
 
@@ -36,8 +35,11 @@ public interface RestAPI {
      */
 
 
-    @GET("/r/{sub}/hot.json")
-    Call<SubredditFeed> getSubredditHotPosts(@Path("sub") String sub);
+    @GET("/r/{sub}.json")
+    Call<Feed> getFeed(@Path("sub") String sub);
+
+    @GET("/r/{sub}/comments/{postid}.json")
+    Call<Feed> getPost(@Path("sub") String sub, @Path("postid") String id);
 
 
 

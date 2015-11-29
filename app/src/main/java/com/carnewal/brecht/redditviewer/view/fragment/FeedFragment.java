@@ -20,12 +20,10 @@ import com.activeandroid.content.ContentProvider;
 import com.activeandroid.query.Delete;
 import com.carnewal.brecht.redditviewer.R;
 import com.carnewal.brecht.redditviewer.data.adapter.FeedAdapter;
-import com.carnewal.brecht.redditviewer.data.adapter.SubredditAdapter;
 import com.carnewal.brecht.redditviewer.data.model.Post;
-import com.carnewal.brecht.redditviewer.data.model.Subreddit;
-import com.carnewal.brecht.redditviewer.data.service.PostSyncService;
-import com.carnewal.brecht.redditviewer.data.service.SubredditSyncService;
+import com.carnewal.brecht.redditviewer.data.service.FeedSyncService;
 import com.carnewal.brecht.redditviewer.view.activity.RedditActivity;
+import com.carnewal.brecht.redditviewer.view.util.ItemClickSupport;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SubredditFeedFragment extends Fragment {
+public class FeedFragment extends Fragment {
 
 
     @Bind(R.id.feed_recyclerview)
@@ -42,8 +40,8 @@ public class SubredditFeedFragment extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_SUBREDDIT_NAME = "subreddit_name";
 
-    public static SubredditFeedFragment newInstance(int listNumber, String subName) {
-        SubredditFeedFragment fragment = new SubredditFeedFragment();
+    public static FeedFragment newInstance(int listNumber, String subName) {
+        FeedFragment fragment = new FeedFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, listNumber);
         args.putString(ARG_SUBREDDIT_NAME, subName);
@@ -52,7 +50,7 @@ public class SubredditFeedFragment extends Fragment {
         return fragment;
     }
 
-    public SubredditFeedFragment() {
+    public FeedFragment() {
 
     }
 
@@ -93,16 +91,28 @@ public class SubredditFeedFragment extends Fragment {
         });
 
 
-        Intent i = new Intent(getActivity(), PostSyncService.class);
+        Intent i = new Intent(getActivity(), FeedSyncService.class);
         i.putExtra("sub", getArguments().getString(ARG_SUBREDDIT_NAME));
         getActivity().startService(i);
 
-
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Log.i("Click:", "short");
+                Toast.makeText(v.getContext(), "Lol", Toast.LENGTH_SHORT);
+            }
+        }).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+                Log.i("Click:", "long");
+                Toast.makeText(v.getContext(), "Long lol", Toast.LENGTH_SHORT);
+                return true;
+            }
+        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 if (!recyclerView.canScrollVertically(-1)) {
                     onScrolledToTop();
                 } else if (!recyclerView.canScrollVertically(1)) {

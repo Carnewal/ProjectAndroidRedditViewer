@@ -15,3 +15,5 @@ And code from following people:
 * [Matthie Harlé : CursorRecyclerAdapter] A CursorAdapter for RecyclerViews
 https://gist.github.com/Shywim/127f207e7248fe48400b
 
+* [Hugo Visser : ItemClickSupport] An ItemClickListener for our Feed's RecyclerView
+http://www.littlerobots.nl/blog/Handle-Android-RecyclerView-Clicks/

@@ -5,13 +5,10 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.activeandroid.ActiveAndroid;
-import com.carnewal.brecht.redditviewer.data.adapter.SubredditAdapter;
 import com.carnewal.brecht.redditviewer.data.model.Subreddit;
-import com.carnewal.brecht.redditviewer.data.net.RedditRESTProvider;
+import com.carnewal.brecht.redditviewer.data.rest.RedditRESTProvider;
 
 import java.util.List;
 

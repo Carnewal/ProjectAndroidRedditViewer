@@ -3,7 +3,7 @@ package com.carnewal.brecht.redditviewer.data.gson;
 import android.util.Log;
 
 import com.carnewal.brecht.redditviewer.data.model.Post;
-import com.carnewal.brecht.redditviewer.data.model.SubredditFeed;
+import com.carnewal.brecht.redditviewer.data.model.Feed;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -14,17 +14,22 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Brecht on 24/11/2015.
+ *
+ * Deserializer for Subreddit Feed data
+ *
+ *
+ *
+ *
+ *
  */
-public class SubredditFeedDeserializer implements JsonDeserializer<SubredditFeed> {
+public class FeedDeserializer implements JsonDeserializer<Feed> {
     @Override
-    public SubredditFeed deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public Feed deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
-        SubredditFeed feed = new SubredditFeed();
+        Feed feed = new Feed();
 
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 

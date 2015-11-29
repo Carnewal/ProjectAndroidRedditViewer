@@ -11,13 +11,15 @@ import android.widget.TextView;
 import com.carnewal.brecht.redditviewer.R;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * Created by Brecht on 26/11/2015.
  */
-public class FeedPostViewHolder extends RecyclerView.ViewHolder {
+public class FeedViewHolder extends RecyclerView.ViewHolder {
 
 
 
@@ -33,12 +35,21 @@ public class FeedPostViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.feedcard_title)
     TextView title;
 
+    @Bind(R.id.feedcard_sub)
+    TextView sub;
+
+    @Bind(R.id.feedcard_comments)
+    TextView comments;
+
+    @Bind(R.id.feedcard_score)
+    TextView score;
+
 
     //private Post post;
 
 
 
-    public FeedPostViewHolder(View itemView) {
+    public  FeedViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
@@ -51,13 +62,14 @@ public class FeedPostViewHolder extends RecyclerView.ViewHolder {
      */
     public void insertFromCursorData(Cursor cursor) {
 
+
     Log.i("Columns: ", ""+cursor.getColumnCount());
         String postTitle = cursor.getString(cursor.getColumnIndexOrThrow("title"));
         String postAuthor = cursor.getString(cursor.getColumnIndexOrThrow("author"));
         String postThumbnail = cursor.getString(cursor.getColumnIndexOrThrow("thumbnail"));
 
-        int postScore = cursor.getInt(cursor.getColumnIndexOrThrow("score"));
-        int postNumComments = cursor.getInt(cursor.getColumnIndexOrThrow("num_comments"));
+        String postScore = String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow("score")));
+        String postNumComments = String.valueOf(cursor.getInt(cursor.getColumnIndexOrThrow("num_comments")));
         String postUrl = cursor.getString(cursor.getColumnIndexOrThrow("url"));
 
         String postDomain = cursor.getString(cursor.getColumnIndexOrThrow("domain"));
@@ -67,7 +79,10 @@ public class FeedPostViewHolder extends RecyclerView.ViewHolder {
        // boolean postIsSelf = cursor.getInt(cursor.getColumnIndexOrThrow("is_self")) > 0;
 
         this.title.setText(postTitle);
-        this.author.setText(postAuthor);
+        this.sub.setText("in " + postSubreddit);
+        this.author.setText("by " + postAuthor);
+        this.comments.setText("Comments:" + postNumComments);
+        this.score.setText("Score: " + postScore);
 
         try {
             if(postThumbnail != null)

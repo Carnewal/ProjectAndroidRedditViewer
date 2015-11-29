@@ -12,14 +12,14 @@ import java.util.List;
  *
  *
  */
-public class SubredditFeed {
+public class Feed {
 
     private List<Post> posts;
 
     private String before;
     private String after;
 
-    public SubredditFeed() {
+    public Feed() {
         posts = new ArrayList<>();
     }
 

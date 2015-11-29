@@ -11,7 +11,7 @@ import com.carnewal.brecht.redditviewer.R;
 /**
  * Created by Brecht on 26/11/2015.
  */
-public class FeedAdapter extends CursorRecyclerAdapter<FeedPostViewHolder>{
+public class FeedAdapter extends CursorRecyclerAdapter<FeedViewHolder>{
 
 
     public FeedAdapter(Cursor cursor) {
@@ -21,13 +21,13 @@ public class FeedAdapter extends CursorRecyclerAdapter<FeedPostViewHolder>{
 
 
     @Override
-    public FeedPostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FeedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_rv_card, parent, false);
-        return new FeedPostViewHolder(v);
+        return new FeedViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolderCursor(FeedPostViewHolder holder, Cursor cursor) {
+    public void onBindViewHolderCursor(FeedViewHolder holder, Cursor cursor) {
         holder.insertFromCursorData(cursor);
     }
 
