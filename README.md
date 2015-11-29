@@ -6,11 +6,12 @@ Created with the use of following modules:
 * Butterknife
 * Retrofit (+ converter-gson)
 * GSON
-* GreenDAO
+* ActiveAndroid
 * Picasso
 * RecyclerView + CardView
+* CircleImageView
 
 And code from following people:
-* [Matthie Harlé : CursorRecyclerAdapter] A cursoradapter implementation for RecyclerViews
-
+* [Matthie Harlé : CursorRecyclerAdapter] A CursorAdapter for RecyclerViews
+https://gist.github.com/Shywim/127f207e7248fe48400b
 
