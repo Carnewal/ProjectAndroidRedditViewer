@@ -1,7 +1,9 @@
 package com.carnewal.brecht.redditviewer.data.rest;
 
+import com.carnewal.brecht.redditviewer.data.gson.CommentDeserializer;
 import com.carnewal.brecht.redditviewer.data.gson.FeedDeserializer;
 import com.carnewal.brecht.redditviewer.data.gson.SubredditDeserializer;
+import com.carnewal.brecht.redditviewer.data.model.Comment;
 import com.carnewal.brecht.redditviewer.data.model.Subreddit;
 import com.carnewal.brecht.redditviewer.data.model.Feed;
 import com.google.gson.Gson;
@@ -34,11 +36,10 @@ public class RedditRESTProvider {
 
     private RedditRESTProvider() {
 
-        final Type subListType = new TypeToken<List<Subreddit>>(){}.getType();
-
         GSON = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
-                .registerTypeAdapter(subListType, new SubredditDeserializer())
+                .registerTypeAdapter(CommentDeserializer.COMMENT_LIST_TYPE, new CommentDeserializer())
+                .registerTypeAdapter(SubredditDeserializer.SUBREDDIT_LIST_TYPE, new SubredditDeserializer())
                 .registerTypeAdapter(Feed.class, new FeedDeserializer())
                 .create();
 

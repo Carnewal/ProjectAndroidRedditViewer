@@ -39,12 +39,9 @@ public class SubredditSyncService extends Service {
             @Override
             public void onResponse(Response<List<Subreddit>> response, Retrofit retrofit) {
                 for(Subreddit s : response.body()) {
-                    Log.i("sub: ", s.display_name);
                     s.save();
                 }
-
             }
-
             @Override
             public void onFailure(Throwable t) {
                 t.printStackTrace();

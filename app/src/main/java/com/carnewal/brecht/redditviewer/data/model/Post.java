@@ -5,8 +5,11 @@ import android.provider.BaseColumns;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 /**
  * Created by Brecht on 24/11/2015.
@@ -70,6 +73,10 @@ public class Post extends Model {
     public String url;
 
 
+    @Column(name="comments")
+    public List<Comment> comments;
+
+
 
 
     public Post() {
@@ -78,7 +85,12 @@ public class Post extends Model {
 
 
 
-
+    public static Post getPostByPostId(String postId) {
+        return new Select()
+                .from(Post.class)
+                .where("Id = ?", postId)
+                .executeSingle();
+    }
 
     //private List<Comment> ...
 

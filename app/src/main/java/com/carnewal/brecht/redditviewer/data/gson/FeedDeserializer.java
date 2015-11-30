@@ -20,10 +20,6 @@ import java.lang.reflect.Type;
  *
  * Deserializer for Subreddit Feed data
  *
- *
- *
- *
- *
  */
 public class FeedDeserializer implements JsonDeserializer<Feed> {
     @Override
@@ -35,8 +31,6 @@ public class FeedDeserializer implements JsonDeserializer<Feed> {
 
         final JsonObject postListingData = ((JsonObject) json).getAsJsonObject("data");
         final JsonArray postsData = postListingData.getAsJsonArray("children");
-
-
 
         String before;
         try { before =  postListingData.get("before").getAsString();

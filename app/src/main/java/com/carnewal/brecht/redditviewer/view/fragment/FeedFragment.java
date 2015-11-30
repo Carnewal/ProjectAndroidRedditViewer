@@ -10,11 +10,11 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.activeandroid.content.ContentProvider;
 import com.activeandroid.query.Delete;
@@ -30,8 +30,12 @@ import butterknife.ButterKnife;
 
 /**
  * A placeholder fragment containing a simple view.
+
+ http://www.grokkingandroid.com/using-loaders-in-android/
+
  */
-public class FeedFragment extends Fragment {
+public class FeedFragment extends Fragment implements ItemClickSupport.OnItemClickListener,
+        ItemClickSupport.OnItemLongClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
 
     @Bind(R.id.feed_recyclerview)
@@ -57,58 +61,22 @@ public class FeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater nfltr, ViewGroup container, Bundle savedInstanceState) {
 
-
         View rootView = nfltr.inflate(R.layout.feed_rv_fragment, container, false);
         ButterKnife.bind(this, rootView);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-
+        // Delete the current feed
         new Delete().from(Post.class).execute();
 
         recyclerView.setAdapter(new FeedAdapter(null));
 
+        initCursorLoader();
+        refreshFeed();
+        ItemClickSupport.addTo(recyclerView)
+                .setOnItemClickListener(this)
+                .setOnItemLongClickListener(this);
 
-
-        getActivity().getSupportLoaderManager().initLoader(1, null, new LoaderManager.LoaderCallbacks<Cursor>() {
-            @Override
-            public Loader<Cursor> onCreateLoader(int arg0, Bundle cursor) {
-                return new CursorLoader(getActivity(),
-                        ContentProvider.createUri(Post.class, null),
-                        null, null, null, null
-                );
-            }
-
-            @Override
-            public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
-                ((FeedAdapter) recyclerView.getAdapter()).swapCursor(cursor);
-            }
-
-            @Override
-            public void onLoaderReset(Loader<Cursor> arg0) {
-                ((FeedAdapter) recyclerView.getAdapter()).swapCursor(null);
-            }
-        });
-
-
-        Intent i = new Intent(getActivity(), FeedSyncService.class);
-        i.putExtra("sub", getArguments().getString(ARG_SUBREDDIT_NAME));
-        getActivity().startService(i);
-
-        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-            @Override
-            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                Log.i("Click:", "short");
-                Toast.makeText(v.getContext(), "Lol", Toast.LENGTH_SHORT);
-            }
-        }).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
-                Log.i("Click:", "long");
-                Toast.makeText(v.getContext(), "Long lol", Toast.LENGTH_SHORT);
-                return true;
-            }
-        });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -128,6 +96,16 @@ public class FeedFragment extends Fragment {
         return rootView;
     }
 
+    private void initCursorLoader() {
+        getActivity().getSupportLoaderManager().initLoader(1, null, this);
+    }
+
+    public void refreshFeed() {
+        Intent i = new Intent(getActivity(), FeedSyncService.class);
+        i.putExtra("sub", getArguments().getString(ARG_SUBREDDIT_NAME));
+        getActivity().startService(i);
+    }
+
     private void onScrolledUp() {
         Log.i("Scroll:", "Scrolled up");
     }
@@ -138,12 +116,12 @@ public class FeedFragment extends Fragment {
     }
 
     private void onScrolledToBottom() {
-        Log.i("Scroll:" , "Scrolled To Bottom");
+        Log.i("Scroll:", "Scrolled To Bottom");
         
     }
 
     private void onScrolledToTop() {
-        Log.i("Scroll:" , "Scrolled To Top");
+        Log.i("Scroll:", "Scrolled To Top");
 
     }
 
@@ -155,9 +133,42 @@ public class FeedFragment extends Fragment {
     }
 
 
-    public void refresh() {
 
-        Toast.makeText(getContext(),"I'm a fragment ehhehehe refreesshhh",Toast.LENGTH_LONG).show();
 
+    ////////////////////////////////////////////////////////////////
+    ///////////////////// RecyclerView clicks //////////////////////
+    ////////////////////////////////////////////////////////////////
+
+    @Override
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        Log.i("Click: ", "Short");
+
+    }
+
+    @Override
+    public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+        Log.i("Click: ", "Short");
+        return true;
+    }
+
+    ////////////////////////////////////////////////////////////////
+    ///////////////////// LoaderCallbacks///////////////////////////
+    ////////////////////////////////////////////////////////////////
+    @Override
+    public Loader<Cursor> onCreateLoader(int arg0, Bundle cursor) {
+        return new CursorLoader(getActivity(),
+                ContentProvider.createUri(Post.class, null),
+                null, null, null, null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> arg0, Cursor cursor) {
+        ((FeedAdapter) recyclerView.getAdapter()).swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> arg0) {
+        ((FeedAdapter) recyclerView.getAdapter()).swapCursor(null);
     }
 }

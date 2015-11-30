@@ -9,6 +9,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ import java.util.List;
 
 
 public class SubredditDeserializer implements JsonDeserializer<List<Subreddit>> {
+
+
+    public static final Type SUBREDDIT_LIST_TYPE = new TypeToken<List<Subreddit>>(){}.getType();
 
     @Override
     public List<Subreddit> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

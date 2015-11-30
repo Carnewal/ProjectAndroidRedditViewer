@@ -20,9 +20,6 @@
         card_view:cardElevation="2dp"
         card_view:cardCornerRadius="3dp"
         card_view:cardBackgroundColor="@android:color/white"
-
-
-
         >
 
         <RelativeLayout

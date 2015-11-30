@@ -102,7 +102,7 @@ public class RedditActivity extends AppCompatActivity
             if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof FeedFragment) {
 
                 FeedFragment current = (FeedFragment) getSupportFragmentManager().findFragmentById(R.id.container);
-                current.refresh();
+                current.refreshFeed();
                 return true;
             }
 

@@ -16,12 +16,18 @@ import retrofit.Retrofit;
 
 /**
  * Created by Brecht on 28/11/2015.
+ *
+ *
+ * TODO : Use asynctask
+ *
+ *
  */
 public class FeedSyncService extends Service {
 
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
 
         String sub = intent.getExtras().getString("sub");
 
